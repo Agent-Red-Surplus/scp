@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP Foundation Creator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1 id="foundationName">SCP FOUNDATION</h1>
+                <p class="motto">Secure. Contain. Protect.</p>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-page="home">Home</button>
+                <button class="nav-btn" data-page="create">Create SCP</button>
+                <button class="nav-btn" data-page="mtf">Create MTF</button>
+                <button class="nav-btn" data-page="personnel">Personnel</button>
+                <button class="nav-btn" data-page="requests">Requests</button>
+                <button class="nav-btn" data-page="goi">Groups of Interest</button>
+                <button class="nav-btn" data-page="breach">Breach Control</button>
+                <button class="nav-btn" data-page="archive">Archive</button>
+                <button class="nav-btn" data-page="settings">Settings</button>
+                <button class="nav-btn" data-page="projects">Projects</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <!-- Home Page -->
+            <div id="home" class="page active">
+                <div class="hero">
+                    <h2>Welcome to Your Foundation</h2>
+                    <p>Create and manage your own SCP containment facility</p>
+                    <div class="stats">
+                        <div class="stat-card">
+                            <h3 id="scpCount">0</h3>
+                            <p>SCPs Contained</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="foundationAge">0</h3>
+                            <p>Days Active</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-scps">
+                    <h3>Recent SCPs</h3>
+                    <div id="recentList" class="scp-grid">
+                        <p class="empty-state">No SCPs created yet. Start by creating your first SCP!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create SCP Page -->
+            <div id="create" class="page">
+                <h2>Create New SCP</h2>
+                
+                <!-- Quick Contain Existing SCP Section -->
+                <div class="quick-contain-section">
+                    <h3>🔄 Quick Contain Existing SCP</h3>
+                    <div class="quick-contain-form">
+                        <div class="form-group">
+                            <label for="existingSCPNumber">Enter SCP Number</label>
+                            <input type="text" id="existingSCPNumber" placeholder="e.g., 173, 682, 999">
+                            <small>Enter the number of an existing SCP to contain it in your foundation</small>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="app.containExistingSCP()">CONTAIN SCP</button>
+                    </div>
+                </div>
+                
+                <!-- Divider -->
+                <div class="section-divider">
+                    <span>OR CREATE NEW SCP</span>
+                </div>
+                
+                <form id="scpForm" class="scp-form">
+                    <div class="form-group">
+                        <label for="scpNumber">SCP Number</label>
+                        <input type="text" id="scpNumber" placeholder="e.g., 001" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="scpName">Object Name</label>
+                        <input type="text" id="scpName" placeholder="e.g., The Gate Guardian" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="scpClass">Object Class</label>
+                        <select id="scpClass" required>
+                            <option value="">Select Class</option>
+                            <option value="Safe">Safe</option>
+                            <option value="Euclid">Euclid</option>
+                            <option value="Keter">Keter</option>
+                            <option value="Thaumiel">Thaumiel</option>
+                            <option value="Neutralized">Neutralized</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="scpDescription">Special Containment Procedures</label>
+                        <textarea id="scpDescription" rows="6" placeholder="Describe containment procedures..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="scpDescription2">Description</label>
+                        <textarea id="scpDescription2" rows="6" placeholder="Describe the SCP..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="scpImage">Image URL (optional)</label>
+                        <input type="url" id="scpImage" placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Create SCP</button>
+                </form>
+            </div>
+
+            <!-- Create MTF Page -->
+            <div id="mtf" class="page">
+                <h2>Create Mobile Task Force</h2>
+                
+                <!-- Quick Create Existing MTF Section -->
+                <div class="quick-contain-section">
+                    <h3>🔄 Quick Create Existing MTF</h3>
+                    <div class="quick-contain-form">
+                        <div class="form-group">
+                            <label for="existingMTFName">Enter MTF Name</label>
+                            <input type="text" id="existingMTFName" placeholder="e.g., Alpha-1, Epsilon-11, Nu-7">
+                            <small>Enter the designation of an existing MTF to quickly create it</small>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="app.quickCreateMTF()">CREATE MTF</button>
+                    </div>
+                </div>
+                
+                <!-- Divider -->
+                <div class="section-divider">
+                    <span>OR CREATE NEW MTF</span>
+                </div>
+                
+                <form id="mtfForm" class="scp-form">
+                    <div class="form-group">
+                        <label for="mtfDesignation">MTF Designation</label>
+                        <input type="text" id="mtfDesignation" placeholder="e.g., MTF Alpha-1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mtfCodename">Codename</label>
+                        <input type="text" id="mtfCodename" placeholder="e.g., Red Right Hand" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mtfMission">Primary Mission</label>
+                        <textarea id="mtfMission" rows="4" placeholder="Describe the MTF's primary mission..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mtfSpecialization">Specialization</label>
+                        <input type="text" id="mtfSpecialization" placeholder="e.g., Internal Security, SCP Recovery" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mtfStatus">Status</label>
+                        <select id="mtfStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Active">Active</option>
+                            <option value="On Standby">On Standby</option>
+                            <option value="Decommissioned">Decommissioned</option>
+                            <option value="MIA">Missing in Action</option>
+                            <option value="KIA">Killed in Action</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Create MTF</button>
+                </form>
+                
+                <div class="mtf-list">
+                    <h3>Active MTFs</h3>
+                    <div id="mtfList" class="scp-grid">
+                        <p class="empty-state">No MTFs created yet. Create your first Mobile Task Force!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personnel Management Page -->
+            <div id="personnel" class="page">
+                <h2>Personnel Management</h2>
+                
+                <!-- Personnel Creation Form -->
+                <form id="personnelForm" class="scp-form">
+                    <div class="form-group">
+                        <label for="personnelName">Full Name</label>
+                        <input type="text" id="personnelName" placeholder="e.g., Dr. Sarah Chen" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personnelRole">Role</label>
+                        <input type="text" id="personnelRole" placeholder="e.g., Senior Researcher, Security Chief" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personnelClearance">Clearance Level</label>
+                        <select id="personnelClearance" required>
+                            <option value="">Select Clearance</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personnelDepartment">Department</label>
+                        <select id="personnelDepartment" required>
+                            <option value="">Select Department</option>
+                            <option value="Research">Research</option>
+                            <option value="Security">Security</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Administration">Administration</option>
+                            <option value="Technical">Technical</option>
+                            <option value="MTF">Mobile Task Force</option>
+                            <option value="Ethics">Ethics Committee</option>
+                            <option value="O5">O5 Council</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personnelStatus">Status</label>
+                        <select id="personnelStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Active">Active</option>
+                            <option value="On Leave">On Leave</option>
+                            <option value="Suspended">Suspended</option>
+                            <option value="Deceased">Deceased</option>
+                            <option value="Retired">Retired</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Add Personnel</button>
+                </form>
+
+                <!-- Clearance Level Management -->
+                <div class="clearance-management">
+                    <h3>🛡️ Clearance Level Management</h3>
+                    <form id="clearanceForm" class="scp-form">
+                        <div class="form-group">
+                            <label for="clearanceName">Clearance Level Name</label>
+                            <input type="text" id="clearanceName" placeholder="e.g., Level 4, Omega, Theta" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="clearanceLevel">Numerical Level</label>
+                            <input type="number" id="clearanceLevel" min="0" max="10" placeholder="e.g., 4" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="clearanceDescription">Description</label>
+                            <textarea id="clearanceDescription" rows="3" placeholder="Describe what this clearance level grants access to..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Create Clearance Level</button>
+                    </form>
+                    
+                    <div class="clearance-list">
+                        <h4>Custom Clearance Levels</h4>
+                        <div id="clearanceList" class="clearance-grid">
+                            <p class="empty-state">No custom clearance levels created</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personnel List -->
+                <div class="personnel-list">
+                    <h3>Foundation Personnel</h3>
+                    <div class="filter-bar">
+                        <select id="departmentFilter">
+                            <option value="">All Departments</option>
+                            <option value="Research">Research</option>
+                            <option value="Security">Security</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Administration">Administration</option>
+                            <option value="Technical">Technical</option>
+                            <option value="MTF">Mobile Task Force</option>
+                            <option value="Ethics">Ethics Committee</option>
+                            <option value="O5">O5 Council</option>
+                        </select>
+                        <select id="clearanceFilter">
+                            <option value="">All Clearances</option>
+                        </select>
+                    </div>
+                    <div id="personnelList" class="personnel-grid">
+                        <p class="empty-state">No personnel assigned yet</p>
+                    </div>
+                </div>
+
+                <!-- Experiment Management -->
+                <div class="experiment-management">
+                    <h3>🔬 Experiment Management</h3>
+                    <form id="experimentForm" class="scp-form">
+                        <div class="form-group">
+                            <label for="experimentName">Experiment Title</label>
+                            <input type="text" id="experimentName" placeholder="e.g., Teleportation Test Series" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experimentSCP">Target SCP</label>
+                            <select id="experimentSCP" required>
+                                <option value="">Select SCP</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experimentLead">Lead Researcher</label>
+                            <select id="experimentLead" required>
+                                <option value="">Select Personnel</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experimentType">Experiment Type</label>
+                            <select id="experimentType" required>
+                                <option value="">Select Type</option>
+                                <option value="Observation">Observation</option>
+                                <option value="Interaction">Interaction</option>
+                                <option value="Testing">Testing</option>
+                                <option value="Containment">Containment</option>
+                                <option value="Neutralization">Neutralization</option>
+                                <option value="Cross-Testing">Cross-Testing</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experimentStatus">Status</label>
+                            <select id="experimentStatus" required>
+                                <option value="Planned">Planned</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="On Hold">On Hold</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Terminated">Terminated</option>
+                                <option value="Failed">Failed</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experimentDescription">Experiment Description</label>
+                            <textarea id="experimentDescription" rows="4" placeholder="Describe the experiment objectives and procedures..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Create Experiment</button>
+                    </form>
+                    
+                    <div class="experiment-list">
+                        <h4>Active Experiments</h4>
+                        <div id="experimentList" class="experiment-grid">
+                            <p class="empty-state">No experiments scheduled</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requests Page -->
+            <div id="requests" class="page">
+                <h2>Personnel & MTF Requests</h2>
+                <div class="requests-info">
+                    <p>Personnel and MTFs will periodically make requests that require your approval.</p>
+                    <p>Approve requests to improve morale and effectiveness, but be mindful of costs.</p>
+                </div>
+                
+                <div class="requests-list">
+                    <h3>Recent Requests</h3>
+                    <div id="requestsList" class="scp-grid">
+                        <p class="empty-state">No recent requests</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GOI Page -->
+            <div id="goi" class="page">
+                <h2>Groups of Interest</h2>
+                <form id="goiForm" class="scp-form">
+                    <div class="form-group">
+                        <label for="goiName">Group Name</label>
+                        <input type="text" id="goiName" placeholder="e.g., Chaos Insurgency" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goiCodename">Codename</label>
+                        <input type="text" id="goiCodename" placeholder="e.g., The Serpent's Hand" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goiThreatLevel">Threat Level</label>
+                        <select id="goiThreatLevel" required>
+                            <option value="">Select Threat Level</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goiDescription">Description</label>
+                        <textarea id="goiDescription" rows="4" placeholder="Describe the group's objectives and capabilities..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goiSpecialization">Primary Focus</label>
+                        <input type="text" id="goiSpecialization" placeholder="e.g., SCP Theft, Sabotage, Intelligence" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Create GOI</button>
+                </form>
+                
+                <div class="goi-list">
+                    <h3>Active Groups</h3>
+                    <div id="goiList" class="scp-grid">
+                        <p class="empty-state">No GOIs created yet. Create your first Group of Interest!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breach Control Page -->
+            <div id="breach" class="page">
+                <h2>Containment Breach Control</h2>
+                <div class="breach-status">
+                    <div class="breach-indicator" id="breachIndicator">
+                        <div class="indicator-light"></div>
+                        <span>SYSTEM STATUS: NORMAL</span>
+                    </div>
+                    <div class="breach-stats">
+                        <div class="stat-card">
+                            <h3 id="breachCount">0</h3>
+                            <p>Total Breaches</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="resolvedCount">0</h3>
+                            <p>Resolved</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="failedCount">0</h3>
+                            <p>Failed</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="escapedCount">0</h3>
+                            <p>Escaped</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="breach-history">
+                    <h3>Recent Containment Breaches</h3>
+                    <div id="breachHistory" class="scp-grid">
+                        <p class="empty-state">No containment breaches recorded</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Archive Page -->
+            <div id="archive" class="page">
+                <h2>SCP Archive</h2>
+                <div class="filter-bar">
+                    <input type="text" id="searchInput" placeholder="Search SCPs...">
+                    <select id="classFilter">
+                        <option value="">All Classes</option>
+                        <option value="Safe">Safe</option>
+                        <option value="Euclid">Euclid</option>
+                        <option value="Keter">Keter</option>
+                        <option value="Thaumiel">Thaumiel</option>
+                        <option value="Neutralized">Neutralized</option>
+                    </select>
+                </div>
+                <div id="archiveList" class="scp-archive">
+                    <p class="empty-state">No SCPs in archive</p>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settings" class="page">
+                <h2>Foundation Settings</h2>
+                <form id="settingsForm" class="settings-form">
+                    <div class="form-group">
+                        <label for="foundationNameInput">Foundation Name</label>
+                        <input type="text" id="foundationNameInput" placeholder="Your Foundation Name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="foundationMotto">Foundation Motto</label>
+                        <input type="text" id="foundationMotto" placeholder="Secure. Contain. Protect.">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Save Settings</button>
+                </form>
+
+                <!-- Site Style Selector -->
+                <div class="site-style-section">
+                    <h3>🎨 Site Style</h3>
+                    <form id="siteStyleForm" class="scp-form">
+                        <div class="form-group">
+                            <label for="siteStyleSelect">Choose Site Theme</label>
+                            <select id="siteStyleSelect" required>
+                                <option value="normal">Normal (Green Terminal)</option>
+                                <option value="white">White (Clean Light)</option>
+                                <option value="black">Black (Pure Dark)</option>
+                                <option value="backrooms">Backrooms (Yellow Warning)</option>
+                                <option value="emergency">Emergency (Red Alert)</option>
+                                <option value="monochrome">Monochrome (Grayscale)</option>
+                                <option value="blackhole">Black Hole (Purple Void)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Apply Style</button>
+                    </form>
+                </div>
+
+                <!-- Esoteric Classes Section -->
+                <div class="esoteric-classes-section">
+                    <h3>🛠️ Esoteric Classes</h3>
+                    <form id="esotericClassForm" class="scp-form">
+                        <div class="form-group">
+                            <label for="esotericName">Class Name</label>
+                            <input type="text" id="esotericName" placeholder="e.g., Apollyon, Archon, Thaumiel-Keter" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="esotericDescription">Description</label>
+                            <textarea id="esotericDescription" rows="3" placeholder="Describe what this class represents..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="esotericColor">Display Color</label>
+                            <select id="esotericColor" required>
+                                <option value="">Select Color</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="purple">Purple</option>
+                                <option value="orange">Orange</option>
+                                <option value="cyan">Cyan</option>
+                                <option value="pink">Pink</option>
+                                <option value="yellow">Yellow</option>
+                                <option value="green">Green</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Create Class</button>
+                    </form>
+                    
+                    <div class="esoteric-classes-list">
+                        <h4>Custom Classes</h4>
+                        <div id="esotericClassesList" class="esoteric-grid">
+                            <p class="empty-state">No custom classes created yet</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="danger-zone">
+                    <h3>Danger Zone</h3>
+                    <button id="clearData" class="btn-danger">Clear All Data</button>
+                </div>
+            </div>
+
+            <!-- Projects Page -->
+            <div id="projects" class="page">
+                <h2>Project Management</h2>
+                
+                <!-- Create Project Form -->
+                <form id="projectForm" class="scp-form">
+                    <div class="form-group">
+                        <label for="projectName">Project Name</label>
+                        <input type="text" id="projectName" placeholder="e.g., Project Paragon" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectCode">Project Code</label>
+                        <input type="text" id="projectCode" placeholder="e.g., PRG-001" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectType">Project Type</label>
+                        <select id="projectType" required>
+                            <option value="">Select Type</option>
+                            <option value="Research">Research</option>
+                            <option value="Containment">Containment</option>
+                            <option value="Neutralization">Neutralization</option>
+                            <option value="Utilization">Utilization</option>
+                            <option value="Cross-Testing">Cross-Testing</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectLead">Lead Researcher</label>
+                        <select id="projectLead" required>
+                            <option value="">Select Personnel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectDescription">Project Description</label>
+                        <textarea id="projectDescription" rows="4" placeholder="Describe the project objectives..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectStatus">Project Status</label>
+                        <select id="projectStatus" required>
+                            <option value="Planned">Planned</option>
+                            <option value="Active">Active</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Terminated">Terminated</option>
+                            <option value="Classified">Classified</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Create Project</button>
+                </form>
+
+                <!-- AI SCP Generator -->
+                <div class="ai-generator-section">
+                    <h3>🤖 AI SCP Generator</h3>
+                    <form id="aiSCPForm" class="scp-form">
+                        <div class="form-group">
+                            <label for="aiProjectSelect">Select Project</label>
+                            <select id="aiProjectSelect" required>
+                                <option value="">Select a project first</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="aiPrompt">SCP Description Prompt</label>
+                            <textarea id="aiPrompt" rows="3" placeholder="Describe the SCP you want to generate... e.g., A sentient computer virus that can jump between devices" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="aiSCPClass">Preferred SCP Class</label>
+                            <select id="aiSCPClass" required>
+                                <option value="">Auto-select</option>
+                                <option value="Safe">Safe</option>
+                                <option value="Euclid">Euclid</option>
+                                <option value="Keter">Keter</option>
+                                <option value="Thaumiel">Thaumiel</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">GENERATE SCP</button>
+                    </form>
+                    
+                    <div class="ai-loading" id="aiLoading" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <p>Generating SCP... This may take up to 10 seconds</p>
+                    </div>
+                </div>
+
+                <!-- Projects List -->
+                <div class="projects-list">
+                    <h3>Active Projects</h3>
+                    <div id="projectsList" class="projects-grid">
+                        <p class="empty-state">No projects created yet. Create your first project!</p>
+                    </div>
+                </div>
+
+                <!-- Project SCPs -->
+                <div class="project-scps">
+                    <h3>Project SCPs</h3>
+                    <div id="projectSCPsList" class="scp-grid">
+                        <p class="empty-state">Select a project to view its SCPs</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Breach Alert Modal -->
+    <div id="breachModal" class="modal">
+        <div class="modal-content breach-alert">
+            <h2> CONTAINMENT BREACH </h2>
+            <div class="breach-info">
+                <h3>SCP-<span id="breachSCP">000</span>: <span id="breachName">Unknown</span></h3>
+                <p class="breach-timer">Time to Critical: <span id="breachTimer">05:00</span></p>
+                <p class="breach-warning">Deploy MTF immediately to contain the breach!</p>
+            </div>
+            <div class="breach-actions">
+                <button id="deployBtn" class="btn-primary">DEPLOY MTF</button>
+                <button id="ignoreBtn" class="btn-danger">IGNORE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invasion Alert Modal -->
+    <div id="invasionModal" class="modal">
+        <div class="modal-content invasion-alert">
+            <h2>🚨 GOI INVASION DETECTED 🚨</h2>
+            <div class="invasion-info">
+                <h3><span id="invadingGOI">Unknown</span></h3>
+                <p class="invasion-target">Target: SCP-<span id="targetSCP">000</span> - <span id="targetSCPName">Unknown</span></p>
+                <p class="invasion-timer">Time to Act: <span id="invasionTimer">03:00</span></p>
+                <p class="invasion-warning">Deploy MTF immediately to defend your SCP or it will be stolen!</p>
+            </div>
+            <div class="invasion-actions">
+                <button id="defendBtn" class="btn-primary">DEPLOY MTF</button>
+                <button id="surrenderBtn" class="btn-danger">SURRENDER SCP</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
